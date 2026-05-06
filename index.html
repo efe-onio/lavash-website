@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0606" />
+<title>Lavash · Turkish Wraps & Dürüm · Paterson, NJ</title>
+<meta name="description" content="Hand-chopped, charcoal-fired wraps & dürüm fresh out of the tandoor. Authentic Turkish street food in Paterson, NJ. Open till 2 AM." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Lavash · Turkish Wraps & Dürüm" />
+<meta property="og:description" content="Hand-chopped, charcoal-fired wraps & dürüm fresh out of the tandoor. Paterson, NJ. Open till 2 AM." />
+<meta property="og:type" content="restaurant.restaurant" />
+<meta property="og:image" content="images/charchoal_chicken.jpg" />
+
+<!-- Fonts: Bebas Neue (display) + Nunito (per brand) + Crimson Text (editorial accents) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============ TOKENS ============ */
+:root {
+  --red: #e03632;
+  --red-deep: #b8221e;
+  --red-soft: #f3b1b1;
+  --cream: #f5ebe0;
+  --cream-warm: #ede0d0;
+  --ink: #0a0606;
+  --ink-soft: #1a1313;
+  --ink-mute: #2a2020;
+  --paper: #fffaf3;
+  --line: rgba(245, 235, 224, 0.12);
+
+  --display: 'Bebas Neue', sans-serif;
+  --body: 'Nunito', system-ui, sans-serif;
+  --serif: 'Crimson Text', Georgia, serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--body);
+  background: var(--ink);
+  color: var(--cream);
+  line-height: 1.55;
+  font-weight: 400;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ============ GRAIN OVERLAY (subtle, sitewide) ============ */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.3s ease;
+}
+.nav.scrolled {
+  background: rgba(10, 6, 6, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 12px 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.nav.scrolled .nav-logo {
+  opacity: 1;
+  transform: translateY(0);
+}
+.nav-logo img { height: 32px; width: auto; }
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-family: var(--display);
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+}
+.nav-links a {
+  position: relative;
+  padding: 6px 2px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red-soft); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--red);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--red);
+  color: var(--paper);
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--red-deep); transform: translateY(-1px); }
+
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 28px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+@media (max-width: 820px) {
+  .nav { padding: 14px 18px; }
+  .nav.scrolled { padding: 10px 18px; }
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: block; }
+  .nav-cta { padding: 8px 14px; font-size: 12px; }
+  .nav-logo img { height: 24px; }
+}
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('images/charchoal_chicken.jpg') center/cover no-repeat;
+  z-index: -2;
+  animation: heroZoom 18s ease-out forwards;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, rgba(10,6,6,0.35) 0%, rgba(10,6,6,0.85) 100%),
+    linear-gradient(180deg, rgba(10,6,6,0.55) 0%, rgba(10,6,6,0.4) 50%, rgba(10,6,6,0.95) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border: 1px solid var(--red-soft);
+  background: rgba(224, 54, 50, 0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.3s ease-out forwards;
+}
+.hero-badge .dot {
+  width: 8px; height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(224, 54, 50, 0.7);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(224, 54, 50, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(224, 54, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 54, 50, 0); }
+}
+
+.hero-logo {
+  width: clamp(240px, 36vw, 440px);
+  margin: 0 auto 24px;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.5));
+  opacity: 0;
+  animation: fadeUp 1s 0.5s ease-out forwards;
+}
+
+.hero-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(18px, 2.6vw, 28px);
+  font-weight: 400;
+  color: var(--cream);
+  max-width: 720px;
+  margin: 0 auto 40px;
+  line-height: 1.4;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  opacity: 0;
+  animation: fadeUp 1s 0.8s ease-out forwards;
+}
+
+.hero-tagline em {
+  color: var(--red-soft);
+  font-style: italic;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s 1.1s ease-out forwards;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-family: var(--display);
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--red);
+  color: var(--paper);
+}
+.btn-primary:hover {
+  background: var(--red-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(224, 54, 50, 0.35);
+}
+.btn-ghost {
+  background: rgba(245, 235, 224, 0.08);
+  color: var(--cream);
+  border-color: var(--cream);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover {
+  background: var(--cream);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+.btn svg { width: 16px; height: 16px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  color: var(--cream);
+  opacity: 0;
+  animation: fadeUp 1s 1.5s ease-out forwards, bounce 2s 2.5s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+@media (max-width: 820px) {
+  .hero-scroll { display: none; }
+  .btn { padding: 14px 24px; font-size: 16px; }
+}
+
+/* ============ SECTION BASE ============ */
+section {
+  position: relative;
+  padding: 120px 32px;
+}
+@media (max-width: 820px) {
+  section { padding: 80px 20px; }
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 80px);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.section-lede {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(17px, 1.6vw, 21px);
+  color: var(--cream-warm);
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ============ PILLARS ============ */
+.pillars {
+  background: linear-gradient(180deg, var(--ink) 0%, var(--ink-soft) 100%);
+  position: relative;
+}
+.pillars-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.pillar {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: default;
+}
+.pillar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.pillar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,6,6,0.2) 0%, rgba(10,6,6,0.85) 100%);
+  z-index: 1;
+}
+.pillar:hover img { transform: scale(1.06); }
+.pillar-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px 28px;
+  z-index: 2;
+}
+.pillar-num {
+  font-family: var(--display);
+  font-size: 14px;
+  color: var(--red-soft);
+  letter-spacing: 0.3em;
+  margin-bottom: 12px;
+}
+.pillar-title-tr {
+  font-family: var(--display);
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 0.95;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.pillar-title-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.3vw, 17px);
+  color: var(--red-soft);
+  margin-bottom: 14px;
+}
+.pillar-desc {
+  font-size: 14px;
+  color: var(--cream-warm);
+  line-height: 1.5;
+  max-width: 280px;
+}
+@media (max-width: 820px) {
+  .pillars-grid { grid-template-columns: 1fr; gap: 16px; }
+  .pillar { aspect-ratio: 16/10; }
+  .pillar-content { padding: 24px 20px; }
+  .pillars-header { margin-bottom: 48px; }
+}
+
+/* ============ MENU ============ */
+.menu {
+  background: var(--ink);
+  position: relative;
+  padding-bottom: 60px;
+}
+.menu-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* Carousel — auto right-to-left infinite scroll */
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 80px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 10px)); }
+}
+.menu-card {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 280px;
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(245,235,224,0.06);
+}
+.menu-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 820px) {
+  .menu-card { width: 220px; height: 220px; }
+  .marquee { margin-bottom: 56px; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 10px)); }
+  }
+}
+
+/* Menu list */
+.menu-list-wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+.menu-pricing-header {
+  display: grid;
+  grid-template-columns: 1fr 110px 110px;
+  gap: 24px;
+  padding: 0 4px 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+  font-family: var(--display);
+  letter-spacing: 0.22em;
+  font-size: 13px;
+  color: var(--red-soft);
+}
+.menu-pricing-header .col-name { color: transparent; }
+.menu-pricing-header .col-price { text-align: right; }
+
+.menu-row {
+  display: grid;
+  grid-template-columns: 1fr 110px 110px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.menu-row:last-of-type { border-bottom: none; }
+
+.menu-name {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.4vw, 28px);
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.menu-name .turkish { color: var(--paper); }
+.menu-name .en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.55em;
+  color: var(--cream-warm);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.75;
+}
+.menu-name .vegan-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border: 1px solid #6fa86f;
+  border-radius: 50%;
+  color: #8fc88f;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.menu-price {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.4vw, 28px);
+  color: var(--red-soft);
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.menu-price.empty { color: rgba(245,235,224,0.25); }
+
+.menu-extras {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.menu-extras h4 {
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.28em;
+  color: var(--red);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.menu-extras-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 16px;
+}
+.menu-extras-row .price {
+  font-family: var(--display);
+  font-size: 22px;
+  color: var(--red-soft);
+  letter-spacing: 0.04em;
+}
+.menu-extras-row small {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--cream-warm);
+  font-weight: 400;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+.menu-footnote {
+  text-align: center;
+  margin-top: 56px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--cream-warm);
+  opacity: 0.75;
+}
+
+@media (max-width: 820px) {
+  .menu-pricing-header { grid-template-columns: 1fr 70px 70px; gap: 12px; font-size: 11px; }
+  .menu-row { grid-template-columns: 1fr 70px 70px; gap: 12px; padding: 18px 2px; }
+  .menu-name { font-size: 20px; gap: 8px; }
+  .menu-name .en { font-size: 13px; }
+  .menu-price { font-size: 22px; }
+  .menu-extras { grid-template-columns: 1fr; gap: 32px; margin-top: 40px; }
+}
+
+/* ============ ABOUT ============ */
+.about {
+  background: linear-gradient(180deg, var(--ink) 0%, var(--ink-soft) 50%, var(--ink) 100%);
+  position: relative;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.about-image {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.about-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(10,6,6,0.4) 100%);
+}
+.about-image-accent {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 180px;
+  aspect-ratio: 2/3;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 6px solid var(--ink);
+  display: none; /* show on desktop only */
+}
+.about-image-accent img { width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 1100px) {
+  .about-image-accent { display: block; }
+}
+.about-text h2 {
+  font-family: var(--display);
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 28px;
+}
+.about-text h2 .accent {
+  color: var(--red);
+  font-style: normal;
+}
+.about-text p {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.4vw, 19px);
+  line-height: 1.65;
+  color: var(--cream-warm);
+  margin-bottom: 18px;
+}
+.about-text p:last-of-type { margin-bottom: 32px; }
+.about-signoff {
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  color: var(--red);
+}
+@media (max-width: 980px) {
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ============ QUOTE BAND ============ */
+.band {
+  position: relative;
+  height: 60vh;
+  min-height: 480px;
+  background: url('images/hero_or_detail.jpg') center/cover no-repeat fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px;
+  overflow: hidden;
+}
+.band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,6,6,0.7) 0%, rgba(10,6,6,0.5) 50%, rgba(10,6,6,0.85) 100%);
+}
+.band-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+}
+.band-content .pre {
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.4em;
+  color: var(--red-soft);
+  margin-bottom: 24px;
+}
+.band-content h3 {
+  font-family: var(--display);
+  font-size: clamp(40px, 7vw, 92px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+}
+.band-content h3 .br { display: block; }
+.band-content h3 em {
+  color: var(--red);
+  font-style: normal;
+}
+@media (max-width: 820px) {
+  .band { background-attachment: scroll; height: auto; min-height: 360px; padding: 80px 20px; }
+}
+
+/* ============ VISIT ============ */
+.visit {
+  background: var(--cream);
+  color: var(--ink);
+  position: relative;
+}
+.visit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(224, 54, 50, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(224, 54, 50, 0.04) 0%, transparent 40%);
+  pointer-events: none;
+}
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+.visit-info .eyebrow { color: var(--red); }
+.visit-info h2 {
+  font-family: var(--display);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 36px;
+}
+.visit-block { margin-bottom: 28px; }
+.visit-block-label {
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+.visit-block p, .visit-block a {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.visit-block a:hover { color: var(--red); }
+
+.hours-line {
+  display: flex;
+  justify-content: space-between;
+  max-width: 320px;
+  font-size: 16px;
+  padding: 4px 0;
+}
+.hours-line .day { color: var(--ink-soft); font-weight: 700; }
+.hours-line .time { color: var(--ink-mute); }
+
+.late-night {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 999px;
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+}
+.late-night .dot {
+  width: 8px; height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.catering-line {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(10,6,6,0.12);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-mute);
+}
+.catering-line a { color: var(--red); font-weight: 700; font-style: normal; }
+
+.visit-map-col { display: flex; flex-direction: column; gap: 20px; }
+
+.map-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 22px;
+  padding: 28px 32px;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(10,6,6,0.18);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.map-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(224,54,50,0.25) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(224,54,50,0.15) 0%, transparent 50%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.map-card > * { position: relative; z-index: 1; }
+.map-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px rgba(10,6,6,0.28);
+}
+.map-card:hover .map-card-icon {
+  background: var(--red);
+  border-color: var(--red);
+}
+.map-card:hover .map-card-arrow {
+  transform: translate(4px, -4px);
+  color: var(--red-soft);
+}
+
+.map-card-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245,235,224,0.18);
+  border-radius: 50%;
+  color: var(--red);
+  transition: all 0.25s ease;
+}
+.map-card-icon svg { width: 26px; height: 26px; }
+
+.map-card-text { min-width: 0; }
+.map-card-eyebrow {
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: var(--red-soft);
+  margin-bottom: 6px;
+}
+.map-card-title {
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+.map-card-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--cream-warm);
+  opacity: 0.75;
+}
+.map-card-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream);
+  transition: all 0.25s ease;
+}
+.map-card-arrow svg { width: 18px; height: 18px; }
+
+.visit-storefront {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+.visit-storefront img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+@media (max-width: 540px) {
+  .map-card { padding: 22px 20px; gap: 16px; }
+  .map-card-icon { width: 48px; height: 48px; }
+  .map-card-icon svg { width: 22px; height: 22px; }
+  .map-card-title { font-size: 18px; }
+  .map-card-sub { font-size: 13px; }
+}
+
+@media (max-width: 980px) {
+  .visit-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 80px 32px 32px;
+  position: relative;
+  border-top: 1px solid var(--line);
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+}
+.footer-brand img {
+  width: 200px;
+  margin-bottom: 18px;
+}
+.footer-brand p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--cream-warm);
+  line-height: 1.6;
+  max-width: 320px;
+  opacity: 0.8;
+}
+.footer-col h5 {
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  color: var(--red);
+  margin-bottom: 18px;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a, .footer-col p {
+  font-family: var(--body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream-warm);
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--red-soft); }
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+.footer-socials a {
+  width: 38px; height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--cream);
+  transition: all 0.2s;
+}
+.footer-socials a:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--paper);
+}
+.footer-socials svg { width: 16px; height: 16px; }
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--body);
+  font-size: 12px;
+  color: var(--cream-warm);
+  opacity: 0.6;
+}
+.footer-bottom a:hover { color: var(--red-soft); opacity: 1; }
+
+@media (max-width: 820px) {
+  .footer { padding: 56px 20px 24px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}
+
+/* ============ MOBILE NAV ============ */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 6, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu ul {
+  list-style: none;
+  text-align: center;
+}
+.mobile-menu li { margin-bottom: 32px; }
+.mobile-menu a {
+  font-family: var(--display);
+  font-size: 32px;
+  letter-spacing: 0.16em;
+  color: var(--cream);
+}
+
+/* ============ ACCESSIBILITY ============ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track { animation: none; }
+  .hero-bg { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-logo">
+    <img src="images/logo-h-white.png" alt="Lavash" />
+  </a>
+  <div class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <a href="tel:+19734360385" class="nav-cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Order
+  </a>
+  <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#visit">Visit</a></li>
+    <li><a href="tel:+19734360385">Call</a></li>
+  </ul>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Open till 2 AM · 7 nights a week
+    </div>
+    <img src="images/logo-h-white.png" alt="Lavash · Wraps & Dürüm" class="hero-logo" />
+    <p class="hero-tagline">
+      Hand-chopped, charcoal-fired wraps &amp; dürüm <em>fresh out of the tandoor.</em>
+    </p>
+    <div class="hero-actions">
+      <a href="tel:+19734360385" class="btn btn-primary" id="orderBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Order Now
+      </a>
+      <a href="#menu" class="btn btn-ghost">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL ↓</div>
+</header>
+
+<!-- ============ PILLARS ============ -->
+<section class="pillars">
+  <div class="container">
+    <div class="pillars-header">
+      <span class="eyebrow">What we do</span>
+      <h2 class="section-title">Three things,<br/>done right.</h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <img src="images/ground-beef.jpg" alt="Hand-chopped meat with cleaver" loading="lazy" />
+        <div class="pillar-content">
+          <div class="pillar-num">No. 01</div>
+          <div class="pillar-title-tr">Hand-Chopped</div>
+          <div class="pillar-title-en">Zırhta Çekilmiş</div>
+          <p class="pillar-desc">Minced by hand on the block. The way Adana has done it for a hundred years.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <img src="images/charchoal_chicken.jpg" alt="Skewers grilling over charcoal" loading="lazy" />
+        <div class="pillar-content">
+          <div class="pillar-num">No. 02</div>
+          <div class="pillar-title-tr">Charcoal-Grilled</div>
+          <div class="pillar-title-en">Kömür Ateşinde</div>
+          <p class="pillar-desc">Open flame. Real wood charcoal. Smoke you can taste in every bite.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <img src="images/tandor_bread.jpg" alt="Fresh tandoor bread" loading="lazy" />
+        <div class="pillar-content">
+          <div class="pillar-num">No. 03</div>
+          <div class="pillar-title-tr">Tandoor Bread</div>
+          <div class="pillar-title-en">Tandır Ekmeği</div>
+          <p class="pillar-desc">Fresh out of the oven, all day long. Warm, blistered, ready to wrap.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section class="menu" id="menu">
+  <div class="container">
+    <div class="menu-header">
+      <span class="eyebrow">The Menu</span>
+      <h2 class="section-title">Wraps. Bowls.<br/>That's the whole game.</h2>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <!-- Original set -->
+      <div class="menu-card"><img src="images/menuitem_adanakebab.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_chickenshsih.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_liver.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_chickenwings.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_cigkofte.png" alt="" /></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="menu-card"><img src="images/menuitem_adanakebab.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_chickenshsih.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_liver.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_chickenwings.png" alt="" /></div>
+      <div class="menu-card"><img src="images/menuitem_cigkofte.png" alt="" /></div>
+    </div>
+  </div>
+
+  <!-- Pricing list -->
+  <div class="menu-list-wrap">
+    <div class="menu-pricing-header">
+      <div class="col-name">Item</div>
+      <div class="col-price">Wrap</div>
+      <div class="col-price">Bowl</div>
+    </div>
+
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Adana</span> <span class="en">Acılı / Acısız</span></div>
+      <div class="menu-price">12.95</div>
+      <div class="menu-price">19.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Chicken Adana</span></div>
+      <div class="menu-price">9.95</div>
+      <div class="menu-price">16.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Lamb Shish</span></div>
+      <div class="menu-price">14.95</div>
+      <div class="menu-price">21.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Chicken Shish</span></div>
+      <div class="menu-price">9.95</div>
+      <div class="menu-price">16.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Liver Shish</span></div>
+      <div class="menu-price">12.95</div>
+      <div class="menu-price">19.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Kanat</span> <span class="en">Wings</span></div>
+      <div class="menu-price empty">—</div>
+      <div class="menu-price">19.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Mix Wrap</span> <span class="en">Karışık Dürüm</span></div>
+      <div class="menu-price">19.95</div>
+      <div class="menu-price">22.95</div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-name"><span class="turkish">Vegan Kofta</span> <span class="en">Çiğ Köfte</span> <span class="vegan-mark" title="Vegan">v</span></div>
+      <div class="menu-price">9.95</div>
+      <div class="menu-price">14.95</div>
+    </div>
+
+    <div class="menu-extras">
+      <div>
+        <h4>Extras</h4>
+        <div class="menu-extras-row">
+          <div>
+            Wrapped in Lahmajoun
+            <small>Lahmacun İçinde</small>
+          </div>
+          <div class="price">+6</div>
+        </div>
+        <div class="menu-extras-row">
+          <div>
+            1.5 Portion
+            <small>1.5 Porsiyon</small>
+          </div>
+          <div class="price">+7</div>
+        </div>
+      </div>
+      <div>
+        <h4>Drinks &amp; Sweets</h4>
+        <div class="menu-extras-row">
+          <div>Baklava</div>
+          <div class="price">5</div>
+        </div>
+        <div class="menu-extras-row">
+          <div>Ayran</div>
+          <div class="price">5</div>
+        </div>
+        <div class="menu-extras-row">
+          <div>Can Soda</div>
+          <div class="price">3</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-footnote">All meats halal · Prices in USD</p>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-image">
+      <img src="images/detail_cooking_shot.jpg" alt="Adana kebab on wooden board" loading="lazy" />
+      <div class="about-image-accent">
+        <img src="images/interior_lamp.jpg" alt="Vintage lamp inside Lavash" loading="lazy" />
+      </div>
+    </div>
+    <div class="about-text">
+      <span class="eyebrow">The story</span>
+      <h2>Made the way <span class="accent">it should be.</span></h2>
+      <p>Lavash is Paterson's home for Turkish street food done right. We're built around one thing: the dürüm — a hand-rolled lavash wrap stuffed with charcoal-grilled kebab, fresh vegetables, and house-made sauces.</p>
+      <p>Our specialty is Adana — hand-minced, hand-skewered, grilled over open flame the way it's done in southern Turkey. Wrap it in warm tandır bread and you've got the kind of meal people travel for.</p>
+      <p>Quick lunch, family dinner, or late-night craving — there's a dürüm here made the way it should be.</p>
+      <div class="about-signoff">— Come say merhaba.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE BAND ============ -->
+<section class="band">
+  <div class="band-content">
+    <div class="pre">— Three steps, one wrap —</div>
+    <h3>
+      Hand-chopped.<span class="br"></span>
+      Charcoal-fired.<span class="br"></span>
+      <em>Tandır-fresh.</em>
+    </h3>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="visit" id="visit">
+  <div class="visit-grid">
+    <div class="visit-info">
+      <span class="eyebrow">Find Us</span>
+      <h2>Come hungry.<br/>Leave happy.</h2>
+
+      <div class="visit-block">
+        <div class="visit-block-label">Address</div>
+        <p><a href="https://maps.app.goo.gl/on3xyAu9mzg1U34J7" target="_blank" rel="noopener">995 Main St<br/>Paterson, NJ 07503</a></p>
+      </div>
+
+      <div class="visit-block">
+        <div class="visit-block-label">Phone</div>
+        <p><a href="tel:+19734360385">(973) 436-0385</a></p>
+      </div>
+
+      <div class="visit-block">
+        <div class="visit-block-label">Hours</div>
+        <div class="hours-line"><span class="day">Mon – Sun</span><span class="time">11:30 AM – 2:00 AM</span></div>
+        <div class="late-night">
+          <span class="dot"></span>
+          OPEN TILL 2 AM
+        </div>
+      </div>
+
+      <p class="catering-line">Catering for events, parties, and offices — <a href="tel:+19734360385">give us a call</a>.</p>
+    </div>
+
+    <div class="visit-map-col">
+      <a href="https://maps.app.goo.gl/on3xyAu9mzg1U34J7" target="_blank" rel="noopener" class="map-card">
+        <div class="map-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="map-card-text">
+          <div class="map-card-eyebrow">Find Us On Google</div>
+          <div class="map-card-title">995 Main St, Paterson NJ</div>
+          <div class="map-card-sub">Tap for directions, reviews &amp; photos</div>
+        </div>
+        <div class="map-card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+        </div>
+      </a>
+      <div class="visit-storefront">
+        <img src="images/exterior_logo_1.jpg" alt="Lavash storefront sign" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/logo-h-white.png" alt="Lavash" />
+      <p>Hand-chopped, charcoal-fired wraps &amp; dürüm fresh out of the tandoor. Paterson, NJ.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Visit</h5>
+      <ul>
+        <li><a href="https://maps.app.goo.gl/on3xyAu9mzg1U34J7" target="_blank" rel="noopener">995 Main St<br/>Paterson, NJ 07503</a></li>
+        <li><a href="tel:+19734360385">(973) 436-0385</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Hours</h5>
+      <ul>
+        <li>Mon – Sun</li>
+        <li>11:30 AM – 2:00 AM</li>
+        <li style="color: var(--red); font-weight: 800;">Open till 2 AM</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Follow</h5>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/lavashwraps/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61572072536396" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+        </a>
+      </div>
+      <p style="margin-top: 16px;">Catering — call us</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> Lavash · Paterson, NJ. All rights reserved.</span>
+    <span>Site by <a href="https://onio.agency" target="_blank" rel="noopener" style="color: inherit;">Onio Agency</a></span>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 80) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu
+  const toggle = document.getElementById('mobileToggle');
+  const menu = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('open');
+    toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    toggle.textContent = '☰';
+  }));
+
+  // Order button: tap-to-call on mobile, scroll to contact on desktop
+  const orderBtn = document.getElementById('orderBtn');
+  orderBtn.addEventListener('click', (e) => {
+    if (window.matchMedia('(min-width: 821px)').matches) {
+      e.preventDefault();
+      document.getElementById('visit').scrollIntoView({ behavior: 'smooth' });
+    }
+    // On mobile: default tel: link fires (tap to call)
+  });
+</script>
+
+</body>
+</html>
